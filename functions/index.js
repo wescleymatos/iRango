@@ -18,5 +18,5 @@ exports.createUserAccount = functions.auth.user().onCreate(event => {
 });
 
 exports.api = functions.https.onRequest((request, response) => {
-  response.send("Hello from Firebase! Alterado!");
+  response.send('Hello from Firebase! Alterado!');
 });
