@@ -2,6 +2,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 admin.initializeApp(functions.config().firebase);
 
@@ -9,6 +10,7 @@ const ref = admin.database().ref();
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(cors());
 
 exports.createUserAccount = functions.auth.user().onCreate(event => {
   let uid = event.data.uid;
@@ -50,6 +52,12 @@ app.post('/restaurants', (req, res) => {
     .then((snapshot) => {
       res.send({ result: snapshot.val() });
     });
+});
+
+app.get('/auth/getToken/:uid', (req, res) => {
+  const uid = req.params.uid;
+
+  res.send(`uid => ${uid}`);
 });
 
 exports.api = functions.https.onRequest(app);

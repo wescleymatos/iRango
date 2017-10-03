@@ -24,9 +24,20 @@ class Login extends Component {
       .then(userLogged => {
         this.setState({ user: userLogged, msg: ''});
 
-        //return <Redirect to='/new-restaurante'/>;
+        this.getToken(userLogged.uid);
+
+        // Tirar dúvida
+        //window.location.href = '/add-restaurante';
       })
-      .catch(() => this.setState({ msg: 'Não foi possível autenticar.'}));
+      .catch(() => this.setState({ msg: 'Não foi possível autenticar.' }));
+  }
+
+  getToken(uid) {
+    fetch(`http://localhost:5001/irango-62221/us-central1/api/auth/getToken/${uid}`)
+      .then(response => response.json())
+      .then(data => {
+        window.localStorage.setItem('token', JSON.stringify(data.token));
+      });
   }
 
   render() {
