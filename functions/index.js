@@ -22,10 +22,12 @@ exports.createUserAccount = functions.auth.user().onCreate(event => {
   });
 });
 
-app.get('/restaurants', (req, res) => {
+app.get('/restaurants/:name', (req, res) => {
   res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
 
-  ref.child('restaurants').once('value')
+  let name = req.params.name;
+
+  ref.child('restaurants').orderByChild('name').equalTo(name).once('value')
     .then((snapshot) => {
       let result = [];
       snapshot.forEach((snap) => {
