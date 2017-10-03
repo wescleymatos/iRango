@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 
 
 const Mapa = withScriptjs(withGoogleMap(props => {
@@ -48,7 +48,7 @@ class Restaurantes extends Component {
               center={ this.state.position } />
           </div>
           <br />
-          <button type="button" className="btn btn-success">Adicionar novo restaurante</button>
+          <a href="/login" className="btn btn-success">Adicionar novo restaurante</a>
         </div>
       </div>
     );
