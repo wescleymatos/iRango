@@ -37,7 +37,7 @@ class Restaurantes extends Component {
       <div className="row">
         <div className="col-lg-12">
           <div className="form-group">
-            <input type="search" className="form-control" id="buscar-restaurantes" placeholder="Buscar Restaurantes" />
+            <input type="search" className="form-control" id="buscar-restaurantes" placeholder="Digite o nome do restaurante" />
           </div>
           <div>
             <Mapa
