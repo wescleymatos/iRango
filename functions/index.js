@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 admin.initializeApp(functions.config().firebase);
+//const credential = admin.initializeApp({ credential: admin.credential.applicationDefault() });
 
 const ref = admin.database().ref();
 const app = express();
@@ -57,7 +58,10 @@ app.post('/restaurants', (req, res) => {
 app.get('/auth/getToken/:uid', (req, res) => {
   const uid = req.params.uid;
 
-  res.send(`uid => ${uid}`);
+  let bucket = admin.storage().bucket();
+
+  //credential.auth().createCustomToken(uid).then(result => res.send(result));
+  res.send({uid, bucket});
 });
 
 exports.api = functions.https.onRequest(app);

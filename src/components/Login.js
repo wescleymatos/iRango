@@ -36,7 +36,8 @@ class Login extends Component {
     fetch(`http://localhost:5001/irango-62221/us-central1/api/auth/getToken/${uid}`)
       .then(response => response.json())
       .then(data => {
-        window.localStorage.setItem('token', JSON.stringify(data.token));
+        console.log(data);
+        //window.localStorage.setItem('token', JSON.stringify(data.token));
       });
   }
 
