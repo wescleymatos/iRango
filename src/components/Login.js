@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import firebase from '../config/firebase';
+import startup from '../config/startup';
 
 class Login extends Component {
   constructor(props) {
@@ -23,7 +24,6 @@ class Login extends Component {
     firebase.auth().signInWithEmailAndPassword(email, pass)
       .then(userLogged => {
         this.setState({ user: userLogged, msg: ''});
-
         this.getToken(userLogged.uid);
 
         // Tirar dúvida
@@ -33,10 +33,12 @@ class Login extends Component {
   }
 
   getToken(uid) {
-    fetch(`http://localhost:5001/irango-62221/us-central1/api/auth/getToken/${uid}`)
+    const url = startup.getUrl(`auth/getToken/${uid}`);
+
+    fetch(url)
       .then(response => response.json())
       .then(data => {
-        window.localStorage.setItem('token', JSON.stringify(data.token));
+        window.localStorage.setItem('token', data.token);
       });
   }
 

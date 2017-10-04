@@ -7,7 +7,6 @@ const config = {
   projectId: 'irango-62221',
   storageBucket: 'irango-62221.appspot.com',
   messagingSenderId: '136203485090'
-
 };
 
 firebase.initializeApp(config);
