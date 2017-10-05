@@ -7,9 +7,9 @@ class NovoRestaurante extends Component {
   submitRestaurante(event) {
     event.preventDefault();
 
-    const nome = event.target['nome'].value;
+    const name = event.target['nome'].value;
     axios.post(startup.getUrl('restaurants'), {
-      name: nome,
+      name: name,
       lat: 23,
       lng: -30
     })
