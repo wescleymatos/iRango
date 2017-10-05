@@ -13,12 +13,12 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 
-app.get('/restaurants/:name', (req, res) => {
+app.get('/restaurants', (req, res) => {
   res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
 
-  let name = req.params.name;
+  //let name = req.params.name; .orderByChild('name').equalTo(name)
 
-  ref.child('restaurants').orderByChild('name').equalTo(name).once('value')
+  ref.child('restaurants').once('value')
     .then((snapshot) => {
       let result = [];
       snapshot.forEach((snap) => {

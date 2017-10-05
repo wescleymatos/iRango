@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 
 import firebase from '../config/firebase';
-
+import startup from '../config/startup';
 
 const Mapa = withScriptjs(withGoogleMap(props => {
   return (
@@ -17,7 +17,8 @@ class Restaurantes extends Component {
 
     this.state = {
       isGettingPosition: false,
-      position: {}
+      position: {},
+      restaurantes: []
     };
   }
 
@@ -35,7 +36,9 @@ class Restaurantes extends Component {
   }
 
   componentDidMount() {
+    const url = startup.getUrl('restaurants');
     this.setState({ isGettingPosition: true });
+
     navigator.geolocation.getCurrentPosition(position => {
       this.setState({
         isGettingPosition: false,
@@ -44,6 +47,20 @@ class Restaurantes extends Component {
           lng: position.coords.longitude
         }
       });
+    });
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => this.setState({ restaurantes: data.result }));
+  }
+
+  renderRestaurantes(restaurantes) {
+    return restaurantes.map((restaurante, index) => {
+      <tr key={index}>
+        <td>{restaurante.name}</td>
+        <td>{restaurante.lat}</td>
+        <td>{restaurante.lng}</td>
+      </tr>
     });
   }
 
@@ -61,6 +78,21 @@ class Restaurantes extends Component {
           </div>
           <br />
           <button type="button" className="btn btn-success" onClick={this.addNovoRestaurante}>Adicionar novo restaurante</button>
+          <br/>
+          <br/>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Lat</th>
+                <th>Long</th>
+              </tr>
+            </thead>
+            <tbody>
+              { this.renderRestaurantes(this.state.restaurantes) }
+            </tbody>
+          </table>
         </div>
       </div>
     );
