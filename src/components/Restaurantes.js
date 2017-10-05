@@ -21,14 +21,16 @@ class Restaurantes extends Component {
     };
   }
 
-  addNovoRestaurante(event) {
+  addNovoRestaurante() {
     let user = firebase.auth().currentUser;
 
     if (user && user.emailVerified) {
+      //Atenção
       window.location.href = '/add-restaurante';
       return;
     }
 
+    //Atenção
     window.location.href = '/login';
   }
 

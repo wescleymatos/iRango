@@ -19,7 +19,6 @@
   "rules": {
     "indent": ["error", 2],
     "complexity": ["error", 2],
-    "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "react/jsx-uses-react": "error",

@@ -37,10 +37,7 @@ app.post('/restaurants', (req, res) => {
   };
 
   ref.child('restaurants').push().set(data)
-    .then(() => ref.child('restaurants').once('value'))
-    .then((snapshot) => {
-      res.send({ result: snapshot.val() });
-    });
+    .then(() => res.send({msg: 'Restaurante inserido com sucesso.'}));
 });
 
 app.get('/auth/getToken/:uid', (req, res) => {

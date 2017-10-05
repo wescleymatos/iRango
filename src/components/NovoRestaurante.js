@@ -7,13 +7,12 @@ class NovoRestaurante extends Component {
   submitRestaurante(event) {
     event.preventDefault();
 
-    const name = event.target['nome'].value;
+    const name = event.target['name'].value;
     axios.post(startup.getUrl('restaurants'), {
       name: name,
       lat: 23,
       lng: -30
-    })
-    .then(function (response) {
+    }).then(function (response) {
       console.log(response);
     });
   }
@@ -24,7 +23,7 @@ class NovoRestaurante extends Component {
         <div className="col-lg-12">
           <form onSubmit={this.submitRestaurante}>
             <div className="form-group">
-              <input type="text" name="nome" className="form-control" placeholder="Nome do restaurante" />
+              <input type="text" name="name" className="form-control" placeholder="Nome do restaurante" />
             </div>
             <button type="submit" className="btn btn-primary">Salvar</button>
           </form>
