@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 
+import firebase from '../config/firebase';
+
 
 const Mapa = withScriptjs(withGoogleMap(props => {
   return (
@@ -17,6 +19,17 @@ class Restaurantes extends Component {
       isGettingPosition: false,
       position: {}
     };
+  }
+
+  addNovoRestaurante(event) {
+    let user = firebase.auth().currentUser;
+
+    if (user && user.emailVerified) {
+      window.location.href = '/add-restaurante';
+      return;
+    }
+
+    window.location.href = '/login';
   }
 
   componentDidMount() {
@@ -36,9 +49,6 @@ class Restaurantes extends Component {
     return (
       <div className="row">
         <div className="col-lg-12">
-          <div className="form-group">
-            <input type="search" className="form-control" id="buscar-restaurantes" placeholder="Digite o nome do restaurante" />
-          </div>
           <div>
             <Mapa
               googleMapURL='https://maps.googleapis.com/maps/api/js?key=AIzaSyCQR19677qUdeHnCS36MSzMDLKQzq-d_WA'
@@ -48,7 +58,7 @@ class Restaurantes extends Component {
               center={ this.state.position } />
           </div>
           <br />
-          <a href="/login" className="btn btn-success">Adicionar novo restaurante</a>
+          <button type="button" className="btn btn-success" onClick={this.addNovoRestaurante}>Adicionar novo restaurante</button>
         </div>
       </div>
     );
