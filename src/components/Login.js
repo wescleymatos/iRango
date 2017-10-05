@@ -27,7 +27,7 @@ class Login extends Component {
         this.getToken(userLogged.uid);
 
         // Tirar dúvida
-        //window.location.href = '/add-restaurante';
+        window.location.href = '/add-restaurante';
       })
       .catch(() => this.setState({ msg: 'Não foi possível autenticar.' }));
   }
