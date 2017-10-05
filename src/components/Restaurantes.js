@@ -55,13 +55,18 @@ class Restaurantes extends Component {
   }
 
   renderRestaurantes(restaurantes) {
-    return restaurantes.map((restaurante, index) => {
-      <tr key={index}>
-        <td>{restaurante.name}</td>
-        <td>{restaurante.lat}</td>
-        <td>{restaurante.lng}</td>
-      </tr>
+    let result = restaurantes.map((restaurante, index) => {
+      return (
+        <tr key={index}>
+          <td>{restaurante.name}</td>
+          <td>{restaurante.lat}</td>
+          <td>{restaurante.lng}</td>
+          <td>{restaurante.lng}</td>
+        </tr>
+      );
     });
+
+    return result;
   }
 
   render() {
@@ -83,10 +88,10 @@ class Restaurantes extends Component {
           <table className="table table-striped">
             <thead>
               <tr>
-                <th>#</th>
                 <th>Nome</th>
-                <th>Lat</th>
-                <th>Long</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
