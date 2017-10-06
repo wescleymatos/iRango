@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 
 import firebase from '../config/firebase';
 import startup from '../config/startup';
 
 const Mapa = withScriptjs(withGoogleMap(props => {
   return (
-    <GoogleMap defaultZoom={16} defaultCenter={{lat: 0, lng: 0}} center={props.center}>
+    <GoogleMap defaultZoom={16} defaultCenter={props.center}>
+      {props.markersRestaurantes.map((mark, index) =>
+        <Marker key={index} position={{lat: parseFloat(mark.lng), lng: parseFloat(mark.lat)}} />
+      )}
     </GoogleMap>
   );
 }));
@@ -61,7 +64,7 @@ class Restaurantes extends Component {
           <td>{restaurante.name}</td>
           <td>{restaurante.lat}</td>
           <td>{restaurante.lng}</td>
-          <td>{restaurante.lng}</td>
+          <td></td>
         </tr>
       );
     });
@@ -75,11 +78,12 @@ class Restaurantes extends Component {
         <div className="col-lg-12">
           <div>
             <Mapa
-              googleMapURL='https://maps.googleapis.com/maps/api/js?key=AIzaSyCQR19677qUdeHnCS36MSzMDLKQzq-d_WA'
+              googleMapURL='https://maps.googleapis.com/maps/api/js?key=AIzaSyDKo-5UfSujcP0Io4nIf7wBPIXl1r5yx5Q'
               loadingElement={<div style={{height: '400px', width: '100%'}} />}
               containerElement={<div style={{height: '400px', width: '100%'}} />}
               mapElement={<div style={{height: '400px', width: '100%'}} />}
-              center={ this.state.position } />
+              center={ this.state.position }
+              markersRestaurantes={ this.state.restaurantes } />
           </div>
           <br />
           <button type="button" className="btn btn-success" onClick={this.addNovoRestaurante}>Adicionar novo restaurante</button>
