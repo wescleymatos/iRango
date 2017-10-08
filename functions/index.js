@@ -16,8 +16,6 @@ app.use(cors());
 app.get('/restaurants', (req, res) => {
   res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
 
-  //let name = req.params.name; .orderByChild('name').equalTo(name)
-
   ref.child('restaurants').once('value')
     .then((snapshot) => {
       let result = [];

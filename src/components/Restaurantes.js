@@ -17,7 +17,6 @@ class Restaurantes extends Component {
     super(props);
 
     this.state = {
-      isGettingPosition: false,
       position: {},
       restaurantes: []
     };
@@ -26,7 +25,7 @@ class Restaurantes extends Component {
   addNovoRestaurante() {
     let user = firebase.auth().currentUser;
 
-    if (user && user.emailVerified) {
+    if (user) {
       //Atenção
       window.location.href = '/add-restaurante';
       return;
@@ -38,16 +37,12 @@ class Restaurantes extends Component {
 
   componentDidMount() {
     const url = startup.getUrl('restaurants');
-    this.setState({ isGettingPosition: true });
 
     navigator.geolocation.getCurrentPosition(position => {
-      this.setState({
-        isGettingPosition: false,
-        position: {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        }
-      });
+      let lat = parseFloat(position.coords.latitude);
+      let lng = parseFloat(position.coords.longitude);
+
+      this.setState({ position: {lat, lng} });
     });
 
     fetch(url)
