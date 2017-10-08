@@ -6,10 +6,8 @@ import startup from '../config/startup';
 
 const Mapa = withScriptjs(withGoogleMap(props => {
   return (
-    <GoogleMap defaultZoom={16} defaultCenter={props.center}>
-      {props.markersRestaurantes.map((mark, index) =>
-        <Marker key={index} position={{lat: parseFloat(mark.lng), lng: parseFloat(mark.lat)}} />
-      )}
+    <GoogleMap defaultZoom={16} defaultCenter={{lat: 0, lng: 0}} center={props.center}>
+      { props.restaurantes.map((r, i) => <Marker key={i} position={{lat: parseFloat(r.lat), lng: parseFloat(r.lng)}} />) }
     </GoogleMap>
   );
 }));
@@ -58,7 +56,7 @@ class Restaurantes extends Component {
   }
 
   renderRestaurantes(restaurantes) {
-    let result = restaurantes.map((restaurante, index) => {
+    return restaurantes.map((restaurante, index) => {
       return (
         <tr key={index}>
           <td>{restaurante.name}</td>
@@ -68,8 +66,6 @@ class Restaurantes extends Component {
         </tr>
       );
     });
-
-    return result;
   }
 
   render() {
@@ -83,7 +79,7 @@ class Restaurantes extends Component {
               containerElement={<div style={{height: '400px', width: '100%'}} />}
               mapElement={<div style={{height: '400px', width: '100%'}} />}
               center={ this.state.position }
-              markersRestaurantes={ this.state.restaurantes } />
+              restaurantes={ this.state.restaurantes } />
           </div>
           <br />
           <button type="button" className="btn btn-success" onClick={this.addNovoRestaurante}>Adicionar novo restaurante</button>
