@@ -16,7 +16,7 @@ app.use(cors());
 app.get('/restaurants', (req, res) => {
   res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
 
-  ref.child('restaurants').once('value')
+  ref.child('restaurants').on('value')
     .then((snapshot) => {
       let result = [];
       snapshot.forEach((snap) => {

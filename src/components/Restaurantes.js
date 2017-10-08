@@ -25,7 +25,7 @@ class Restaurantes extends Component {
   addNovoRestaurante() {
     let user = firebase.auth().currentUser;
 
-    if (user) {
+    if (user && user.emailVerified) {
       //Atenção
       window.location.href = '/add-restaurante';
       return;
