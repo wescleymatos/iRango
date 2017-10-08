@@ -6,6 +6,7 @@ import Restaurantes from './components/Restaurantes';
 import Sobre from './components/Sobre';
 import Login from './components/Login';
 import NovoRestaurante from './components/NovoRestaurante';
+import CriarUsuario from './components/CriarUsuario';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
           <Route exact path="/sobre" component={ Sobre } />
           <Route exact path="/login" component={ Login } />
           <Route exact path="/add-restaurante" component={ NovoRestaurante } />
+          <Route exact path="/add-usuario" component={ CriarUsuario } />
         </div>
       </Router>
     );

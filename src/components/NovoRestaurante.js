@@ -61,23 +61,21 @@ class NovoRestaurante extends Component {
     return (
       <div className="row">
         <div className="col-lg-12">
-          <Mapa
-            googleMapURL='https://maps.googleapis.com/maps/api/js?key=AIzaSyDKo-5UfSujcP0Io4nIf7wBPIXl1r5yx5Q'
-            loadingElement={<div style={{height: '400px', width: '100%'}} />}
-            containerElement={<div style={{height: '400px', width: '100%'}} />}
-            mapElement={<div style={{height: '400px', width: '100%'}} />}
-            center={ this.state.position }
-            getPosition={ this.getPosition }/>
-
-          <br />
-          {this.state.msg && <div className="alert alert-success" role="alert">{this.state.msg}</div>}
-
           <form onSubmit={this.submitRestaurante}>
+            <div className="form-group">
+              <input required type="text" name="name" className="form-control" placeholder="Nome do restaurante" />
+            </div>
+            {this.state.msg && <div className="alert alert-success" role="alert">{this.state.msg}</div>}
+            <Mapa
+              googleMapURL='https://maps.googleapis.com/maps/api/js?key=AIzaSyDKo-5UfSujcP0Io4nIf7wBPIXl1r5yx5Q'
+              loadingElement={<div style={{height: '400px', width: '100%'}} />}
+              containerElement={<div style={{height: '400px', width: '100%'}} />}
+              mapElement={<div style={{height: '400px', width: '100%'}} />}
+              center={ this.state.position }
+              getPosition={ this.getPosition }/>
             <input type="hidden" name="lat" value={this.state.latLngRestaurante.lat} />
             <input type="hidden" name="lng" value={this.state.latLngRestaurante.lng} />
-            <div className="form-group">
-              <input type="text" name="name" className="form-control" placeholder="Nome do restaurante" />
-            </div>
+            <br />
             <button type="submit" className="btn btn-primary">Salvar</button>
           </form>
         </div>

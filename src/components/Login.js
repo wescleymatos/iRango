@@ -43,15 +43,10 @@ class Login extends Component {
   }
 
   render() {
-    let msg = null;
-    if (this.state.msg) {
-      msg = <div className="alert alert-danger" role="alert">{this.state.msg}</div>;
-    }
-
     return (
       <div className="row justify-content-center">
         <div className="col-lg-4">
-          {msg}
+          {this.state.msg && <div className="alert alert-danger" role="alert">{this.state.msg}</div>}
           <form onSubmit={this.authUser}>
             <div className="form-group">
               <input type="email" name="email" className="form-control" placeholder="Email" />
@@ -59,8 +54,10 @@ class Login extends Component {
             <div className="form-group">
               <input type="password" name="pass" className="form-control" placeholder="Senha" />
             </div>
-            <button type="submit" className="btn btn-primary">Logar</button>
+            <button type="submit" className="btn btn-primary btn-block">Logar</button>
           </form>
+          <br />
+          <a href="/add-usuario" className="btn btn-success btn-block">Criar conta</a>
         </div>
       </div>
     );
