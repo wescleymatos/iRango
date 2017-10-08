@@ -22,18 +22,13 @@ class CriarUsuario extends Component {
 
     firebase.auth().createUserWithEmailAndPassword(email, pass)
       .then(userLogged => {
-        userLogged.sendEmailVerification().then(() => {
-          //Atenção
-          window.location.href = '/login';
-        }, (error) => {
-          this.setState({ msg: 'Não foi possível criar a conta de usuário.' })
-        });
-
-        //this.setState({ user: userLogged, msg: ''});
-        //this.getToken(userLogged.uid);
-
-        // Tirar dúvida
-        //window.location.href = '/add-restaurante';
+        userLogged.sendEmailVerification()
+          .then(() => {
+            //Atenção
+            window.location.href = '/login';
+          }, () => {
+            this.setState({ msg: 'Não foi possível criar a conta de usuário.' });
+          });
       });
   }
 
