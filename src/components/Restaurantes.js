@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 
 import firebase from '../config/firebase';
 import startup from '../config/startup';
@@ -7,6 +7,7 @@ import startup from '../config/startup';
 const Mapa = withScriptjs(withGoogleMap(props => {
   return (
     <GoogleMap defaultZoom={16} defaultCenter={{lat: 0, lng: 0}} center={props.center}>
+      { props.restaurantes.map((r, i) => <Marker key={i} position={{lat: parseFloat(r.lat), lng: parseFloat(r.lng)}} />) }
     </GoogleMap>
   );
 }));
@@ -16,7 +17,6 @@ class Restaurantes extends Component {
     super(props);
 
     this.state = {
-      isGettingPosition: false,
       position: {},
       restaurantes: []
     };
@@ -25,7 +25,7 @@ class Restaurantes extends Component {
   addNovoRestaurante() {
     let user = firebase.auth().currentUser;
 
-    if (user && user.emailVerified) {
+    if (user) {
       //Atenção
       window.location.href = '/add-restaurante';
       return;
@@ -37,16 +37,12 @@ class Restaurantes extends Component {
 
   componentDidMount() {
     const url = startup.getUrl('restaurants');
-    this.setState({ isGettingPosition: true });
 
     navigator.geolocation.getCurrentPosition(position => {
-      this.setState({
-        isGettingPosition: false,
-        position: {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        }
-      });
+      let lat = parseFloat(position.coords.latitude);
+      let lng = parseFloat(position.coords.longitude);
+
+      this.setState({ position: {lat, lng} });
     });
 
     fetch(url)
@@ -55,18 +51,16 @@ class Restaurantes extends Component {
   }
 
   renderRestaurantes(restaurantes) {
-    let result = restaurantes.map((restaurante, index) => {
+    return restaurantes.map((restaurante, index) => {
       return (
         <tr key={index}>
           <td>{restaurante.name}</td>
           <td>{restaurante.lat}</td>
           <td>{restaurante.lng}</td>
-          <td>{restaurante.lng}</td>
+          <td></td>
         </tr>
       );
     });
-
-    return result;
   }
 
   render() {
@@ -75,11 +69,12 @@ class Restaurantes extends Component {
         <div className="col-lg-12">
           <div>
             <Mapa
-              googleMapURL='https://maps.googleapis.com/maps/api/js?key=AIzaSyCQR19677qUdeHnCS36MSzMDLKQzq-d_WA'
+              googleMapURL='https://maps.googleapis.com/maps/api/js?key=AIzaSyDKo-5UfSujcP0Io4nIf7wBPIXl1r5yx5Q'
               loadingElement={<div style={{height: '400px', width: '100%'}} />}
               containerElement={<div style={{height: '400px', width: '100%'}} />}
               mapElement={<div style={{height: '400px', width: '100%'}} />}
-              center={ this.state.position } />
+              center={ this.state.position }
+              restaurantes={ this.state.restaurantes } />
           </div>
           <br />
           <button type="button" className="btn btn-success" onClick={this.addNovoRestaurante}>Adicionar novo restaurante</button>
