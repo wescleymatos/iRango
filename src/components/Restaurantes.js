@@ -3,6 +3,7 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-map
 
 import firebase from '../config/firebase';
 import startup from '../config/startup';
+import NavBar from './NavBar';
 
 const Mapa = withScriptjs(withGoogleMap(props => {
   return (
@@ -66,6 +67,7 @@ class Restaurantes extends Component {
   render() {
     return (
       <div className="row">
+        <NavBar />
         <div className="col-lg-12">
           <div>
             <Mapa
