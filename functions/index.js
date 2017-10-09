@@ -3,8 +3,8 @@ const admin = require('firebase-admin');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
 const serviceAccount = require('./config/irango.json');
+
 admin.initializeApp(functions.config().firebase);
 const authApp = admin.initializeApp({ credential: admin.credential.cert(serviceAccount) }, 'authApp');
 const ref = admin.database().ref();
@@ -16,7 +16,7 @@ app.use(cors());
 app.get('/restaurants', (req, res) => {
   res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
 
-  ref.child('restaurants').on('value')
+  ref.child('restaurants').once('value')
     .then((snapshot) => {
       let result = [];
       snapshot.forEach((snap) => {
