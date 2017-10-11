@@ -13,30 +13,10 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 
-app.get('/restaurants', (req, res) => {
-  res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
+// Carrega as Rotas
+const restauranteRoute = require('./routes/restaurante-route');
 
-  ref.child('restaurants').once('value')
-    .then((snapshot) => {
-      let result = [];
-      snapshot.forEach((snap) => {
-        result.push(snap.val());
-      });
-
-      res.send({ result });
-    });
-});
-
-app.post('/restaurants', (req, res) => {
-  const data = {
-    name: req.body.name,
-    lat: req.body.lat,
-    lng: req.body.lng
-  };
-
-  ref.child('restaurants').push().set(data)
-    .then(() => res.send({msg: 'Restaurante inserido com sucesso.'}));
-});
+app.use('/', restauranteRoute);
 
 app.get('/auth/getToken/:uid', (req, res) => {
   const uid = req.params.uid;
