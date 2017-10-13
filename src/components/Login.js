@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import firebase from '../config/firebase';
 import startup from '../config/startup';
+import NavBar from './NavBar';
 
 class Login extends Component {
   constructor(props) {
@@ -45,6 +46,7 @@ class Login extends Component {
   render() {
     return (
       <div className="row justify-content-center">
+        <NavBar />
         <div className="col-lg-4">
           {this.state.msg && <div className="alert alert-danger" role="alert">{this.state.msg}</div>}
           <form onSubmit={this.authUser}>

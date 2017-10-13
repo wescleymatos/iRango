@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import firebase from '../config/firebase';
+
 class NavBar extends Component {
   constructor(props) {
     super(props);
@@ -8,10 +10,33 @@ class NavBar extends Component {
     this.state = {
       user: {}
     };
+
+    this.logoutUser = this.logoutUser.bind(this);
+  }
+
+  getUserLogged() {
+    return new Promise(resolve => {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          resolve(user);
+        }
+      });
+    });
+  }
+
+  logoutUser() {
+    firebase.auth().signOut()
+      .then(() => {
+        this.setState({ user: {} });
+
+        //Atenção
+        window.location.href = '/';
+      });
   }
 
   componentDidMount() {
-
+    this.getUserLogged()
+      .then(user => this.setState({ user }));
   }
 
   render() {
@@ -38,7 +63,7 @@ class NavBar extends Component {
             </ul>
           </div>
           <div id="logout" className="float-right">
-            <a className="btn btn-link">{JSON.stringify({})}</a>
+            {this.state.user && <button onClick={this.logoutUser} className="btn btn-link">{this.state.user.email}</button>}
           </div>
         </div>
       </nav>
