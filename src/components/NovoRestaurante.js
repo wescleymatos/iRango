@@ -3,7 +3,7 @@ import axios from 'axios';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 
 import startup from '../config/startup';
-
+import NavBar from './NavBar';
 
 const Mapa = withScriptjs(withGoogleMap(props => {
   return (
@@ -60,6 +60,7 @@ class NovoRestaurante extends Component {
   render() {
     return (
       <div className="row">
+        <NavBar />
         <div className="col-lg-12">
           <form onSubmit={this.submitRestaurante}>
             <div className="form-group">
