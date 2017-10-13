@@ -34,6 +34,10 @@ class NavBar extends Component {
       });
   }
 
+  getClassCss(menu) {
+    return this.props.menu === menu ? 'active nav-item' : 'nav-item';
+  }
+
   componentDidMount() {
     this.getUserLogged()
       .then(user => this.setState({ user }));
@@ -51,13 +55,13 @@ class NavBar extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarCollapse">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
+              <li className={this.getClassCss('home')}>
                 <Link className="nav-link" to="/">Início</Link>
               </li>
-              <li className="nav-item">
+              <li className={this.getClassCss('restaurantes')}>
                 <Link className="nav-link" to="/restaurantes">Restaurantes</Link>
               </li>
-              <li className="nav-item">
+              <li className={this.getClassCss('sobre')}>
                 <Link className="nav-link" to="/sobre">Sobre</Link>
               </li>
             </ul>
