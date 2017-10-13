@@ -46,7 +46,7 @@ class Login extends Component {
   render() {
     return (
       <div className="row justify-content-center">
-        <NavBar />
+        <NavBar menu="login" />
         <div className="col-lg-4">
           {this.state.msg && <div className="alert alert-danger" role="alert">{this.state.msg}</div>}
           <form onSubmit={this.authUser}>

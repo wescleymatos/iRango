@@ -60,7 +60,7 @@ class NovoRestaurante extends Component {
   render() {
     return (
       <div className="row">
-        <NavBar />
+        <NavBar menu="restaurantes" />
         <div className="col-lg-12">
           <form onSubmit={this.submitRestaurante}>
             <div className="form-group">

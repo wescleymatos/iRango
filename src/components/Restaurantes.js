@@ -67,7 +67,7 @@ class Restaurantes extends Component {
   render() {
     return (
       <div className="row">
-        <NavBar />
+        <NavBar menu="restaurantes" />
         <div className="col-lg-12">
           <div>
             <Mapa
