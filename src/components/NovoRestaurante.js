@@ -3,6 +3,7 @@ import axios from 'axios';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 
 import startup from '../config/startup';
+import firebase from '../config/firebase';
 import NavBar from './NavBar';
 
 const Mapa = withScriptjs(withGoogleMap(props => {
@@ -28,6 +29,12 @@ class NovoRestaurante extends Component {
   }
 
   componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        window.location.href = '/login';
+      }
+    });
+
     navigator.geolocation.getCurrentPosition(position => {
       let lat = parseFloat(position.coords.latitude);
       let lng = parseFloat(position.coords.longitude);
