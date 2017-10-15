@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import firebase from '../config/firebase';
+import NavBar from './NavBar';
 
 class CriarUsuario extends Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class CriarUsuario extends Component {
   render() {
     return (
       <div className="row justify-content-center">
+        <NavBar menu="usuario" />
         <div className="col-lg-4">
           {this.state.msg && <div className="alert alert-info" role="alert">{this.state.msg}</div>}
           <form onSubmit={this.createUser} method="post">
