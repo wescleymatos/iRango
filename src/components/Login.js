@@ -14,6 +14,7 @@ class Login extends Component {
     };
 
     this.authUser = this.authUser.bind(this);
+    this.authGoogleAccount = this.authGoogleAccount.bind(this);
   }
 
   authUser(event) {
@@ -28,6 +29,20 @@ class Login extends Component {
         this.getToken(userLogged.uid);
 
         // Tirar dúvida
+        window.location.href = '/add-restaurante';
+      })
+      .catch(() => this.setState({ msg: 'Não foi possível autenticar.' }));
+  }
+
+  authGoogleAccount() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase.auth().signInWithPopup(provider)
+      .then(() => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        //var token = result.credential.accessToken;
+        //var user = result.user;
+
         window.location.href = '/add-restaurante';
       })
       .catch(() => this.setState({ msg: 'Não foi possível autenticar.' }));
@@ -58,6 +73,8 @@ class Login extends Component {
             </div>
             <button type="submit" className="btn btn-primary btn-block">Logar</button>
           </form>
+          <br />
+          <button type="button" onClick={this.authGoogleAccount} className="btn btn-danger btn-block">Conta do Google</button>
           <br />
           <a href="/add-usuario" className="btn btn-success btn-block">Criar conta</a>
         </div>
