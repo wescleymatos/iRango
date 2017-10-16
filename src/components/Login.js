@@ -14,7 +14,7 @@ class Login extends Component {
     };
 
     this.authUser = this.authUser.bind(this);
-    this.authUser = this.authGoogleAccount.bind(this);
+    this.authGoogleAccount = this.authGoogleAccount.bind(this);
   }
 
   authUser(event) {
@@ -38,14 +38,14 @@ class Login extends Component {
     const provider = new firebase.auth.GoogleAuthProvider();
 
     firebase.auth().signInWithPopup(provider)
-      .then((result) => {
+      .then(() => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         //var token = result.credential.accessToken;
         //var user = result.user;
 
         window.location.href = '/add-restaurante';
       })
-      .catch((error) => this.setState({ msg: 'Não foi possível autenticar.' }));
+      .catch(() => this.setState({ msg: 'Não foi possível autenticar.' }));
   }
 
   getToken(uid) {
